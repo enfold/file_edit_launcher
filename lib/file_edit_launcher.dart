@@ -21,17 +21,24 @@ class FileEditLauncher {
     PlatformException? er;
     StackTrace? stack;
 
-    await _channel.invokeMethod(
-        'launch_file_editor', {'file_path': file.absolute.path}).onError((error,
-            stackTrace) =>
+    await _channel.invokeMethod('launch_file_editor', {
+      'file_path': file.absolute.path
+    }).catchError((error, stackTrace) =>
         {er = error as PlatformException, stack = stackTrace});
     return er != null
-        ? LauncherResult(false,
-            er != null ? parseError(er!.code) : LauncherResult.unknown, stack)
+        ? LauncherResult(
+            false,
+            er != null
+                ? parseError(er!.code, er!.message, file.uri.toFilePath())
+                : LauncherResult.unknown,
+            stack)
         : LauncherResult(true, null, stack);
   }
 
-  static int parseError(String errorCode) {
+  static int parseError(String errorCode, String? message, String filePath) {
+    print(errorCode);
+    print(message);
+    print(filePath);
     switch (errorCode) {
       case "Permission Denied":
         {
