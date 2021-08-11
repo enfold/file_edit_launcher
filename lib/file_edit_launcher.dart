@@ -18,15 +18,16 @@ class FileEditLauncher {
   ///they have devolped thier app
   ///
   static Future<LauncherResult> launchFileEditor(File file) async {
-    int? er;
+    PlatformException? er;
     StackTrace? stack;
 
     await _channel.invokeMethod(
         'launch_file_editor', {'file_path': file.absolute.path}).onError((error,
             stackTrace) =>
-        {er = parseError(error as String), stack = stackTrace});
+        {er = error as PlatformException, stack = stackTrace});
     return er != null
-        ? LauncherResult(false, er, stack)
+        ? LauncherResult(false,
+            er != null ? parseError(er!.code) : LauncherResult.unknown, stack)
         : LauncherResult(true, null, stack);
   }
 
