@@ -1,0 +1,6 @@
+framework module file_edit_launcher {
+  umbrella header "file_edit_launcher-umbrella.h"
+
+  export *
+  module * { export * }
+}
