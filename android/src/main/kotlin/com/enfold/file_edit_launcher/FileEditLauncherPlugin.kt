@@ -177,7 +177,9 @@ class FileEditLauncherPlugin : MethodCallHandler, FlutterPlugin, ActivityAware, 
   override fun onDetachedFromActivity() {}
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-    result!!.success("Done Editing")
+    if(result != null){
+      result!!.success("Done Editing")
+    }
     return true
   }
 
