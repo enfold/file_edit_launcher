@@ -11,6 +11,27 @@ side the code has been hollowed out and changed to Kotlin. The IOS code was simp
 We also added the key functionality of editing a file. Editing Files is currently only supported on Android.
 For Android we're using Intents and FileProvider to open and edit files in other apps.
 
+### High Level Explination
+
+This package exposes and API consisting of one function `launchFileEditor(file)` that launches the 
+app chooser(Android) allowing the user to pick an external app to edit the file with. This edit should 
+happen in place and happen even if the file is a application private file. When the user has finished
+editing the file there is a call back to notify that app that the edit has been finished. 
+
+Dart Layer:
+On the dart side the `launchFileEditor(File file)` requires a Dart File Object. The path of this file is
+passed across the method channel where it is passed to the native kotlin. When the response is returned 
+we return a LauncherResult representing all the potential results. 
+
+Android Layer:
+First we register the method channel. When the call over the channel is consumed we extract the file path.
+Using the File path we first check to make sure that the file exists. If it doesnt we return and error 
+communicating the file is missing. We then check the Build version to ask for permissions if needed. At 
+this point we create a new Intent(Intent.ACTION_EDIT). We then get the uri provided by FileProvider 
+so other apps can access our private files. From here we set the data and type of the intent. The final 
+step is we launch the intent using startActivityForResult(); When the activity has finished and returned
+we send that back across the method channel notifying the consumer.
+
 ## Getting Started
 
 The Flutter side of this API is very symple. It consists of one function 
