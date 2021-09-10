@@ -153,7 +153,7 @@ class FileEditLauncherPlugin : MethodCallHandler, FlutterPlugin, ActivityAware, 
       )
     intent.setDataAndType(uri, typeString)
     val chooser = Intent.createChooser(intent, "Pick Editor")
-    activity!!.startActivityForResult(chooser, 1)
+    activity!!.startActivityForResult(chooser, 178563)
   }
 
   override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
@@ -177,10 +177,12 @@ class FileEditLauncherPlugin : MethodCallHandler, FlutterPlugin, ActivityAware, 
   override fun onDetachedFromActivity() {}
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-    if(result != null){
+    if(requestCode == 178563) {
       result!!.success("Done Editing")
+
+      return true
     }
-    return true
+    return false
   }
 
 }
