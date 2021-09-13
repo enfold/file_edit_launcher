@@ -3,8 +3,6 @@ package com.enfold.file_edit_launcher
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Environment
-import android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
 import androidx.core.content.FileProvider
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
@@ -16,7 +14,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import java.io.File
-import java.io.IOException
 
 /** FileEditLauncherPlugin */
 
@@ -65,19 +62,6 @@ class FileEditLauncherPlugin : MethodCallHandler, FlutterPlugin, ActivityAware, 
               return
             }
 
-          if(pathRequiresPermission()) {
-
-            if (isMediaStorePath && !Environment.isExternalStorageManager()) {
-              val permissionIntent = Intent(ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-              activity!!.startActivity(permissionIntent)
-              result.error(
-                "Permission Denied",
-                "Permission denied: android.Manifest.permission.MANAGE_EXTERNAL_STORAGE",
-                null
-              )
-              return
-            }
-          }
             startActivity()
       } else {
         result.error("File Missing", "The file path provided points to a file that doesn't exist.", null)
@@ -88,6 +72,8 @@ class FileEditLauncherPlugin : MethodCallHandler, FlutterPlugin, ActivityAware, 
     }
   }
 
+  //This code needs to be kept for the refactor to support api:30+
+  /*
   private fun pathRequiresPermission(): Boolean {
     return try {
       val appDirCanonicalPath = File(context!!.applicationInfo.dataDir).canonicalPath
@@ -122,6 +108,7 @@ class FileEditLauncherPlugin : MethodCallHandler, FlutterPlugin, ActivityAware, 
       }
       return isMediaStorePath
     }
+*/
 
   private val isFileAvailable: Boolean
     get() {
