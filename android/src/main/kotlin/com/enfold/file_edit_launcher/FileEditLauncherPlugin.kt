@@ -17,11 +17,15 @@ import java.io.File
 
 /** FileEditLauncherPlugin */
 
-const val CHANNEL_NAME = "file_edit_launcher"
+
 
 /** This is a Flutter Plugin that opens a file chooser allowing the user to edit and view the passed file. */
 
 class FileEditLauncherPlugin : MethodCallHandler, FlutterPlugin, ActivityAware, PluginRegistry.ActivityResultListener  {
+
+  companion object{
+    const val CHANNEL_NAME = "file_edit_launcher"
+  }
 
   private var context: Context? = null
   private var activity: Activity? = null
