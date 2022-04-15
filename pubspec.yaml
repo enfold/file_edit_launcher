@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  # temporarily disabling flutter lints
+  # because this isn't actively being developed.
+  # flutter_lints: ^1.0.4
 
 dev_dependencies:
   flutter_test:
