@@ -36,9 +36,6 @@ class FileEditLauncher {
   }
 
   static int parseError(String errorCode, String? message, String filePath) {
-    print(errorCode);
-    print(message);
-    print(filePath);
     switch (errorCode) {
       case "Permission Denied":
         {

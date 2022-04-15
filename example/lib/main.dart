@@ -11,15 +11,17 @@ import 'package:path/path.dart' as p;
 import 'package:file_edit_launcher/file_edit_launcher.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
@@ -32,10 +34,7 @@ class _MyAppState extends State<MyApp> {
     var pdf = createPdf();
     await file.writeAsBytes(await pdf.save());
 
-    final val = await FileEditLauncher.launchFileEditor(file);
-
-    print(val.successful);
-    print(val.error);
+    await FileEditLauncher.launchFileEditor(file);
   }
 
   pw.Document createPdf() {
@@ -62,8 +61,8 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
             child: TextButton(
-          child: Text('Edit File'),
           onPressed: launchEditFile,
+          child: const Text('Edit File'),
         )),
       ),
     );
