@@ -1,8 +1,9 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/services.dart';
 
 import 'package:file_edit_launcher/launcher_response.dart';
-import 'package:flutter/services.dart';
 
 class FileEditLauncher {
   static const MethodChannel _channel = MethodChannel('file_edit_launcher');
@@ -36,9 +37,6 @@ class FileEditLauncher {
   }
 
   static int parseError(String errorCode, String? message, String filePath) {
-    print(errorCode);
-    print(message);
-    print(filePath);
     switch (errorCode) {
       case "Permission Denied":
         {

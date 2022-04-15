@@ -1,25 +1,27 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:path/path.dart' as p;
 
 import 'package:file_edit_launcher/file_edit_launcher.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const FileEditLauncherApp());
 }
 
-class MyApp extends StatefulWidget {
+class FileEditLauncherApp extends StatefulWidget {
+  const FileEditLauncherApp({Key? key}) : super(key: key);
+
   @override
-  _MyAppState createState() => _MyAppState();
+  FileEditLauncherAppState createState() => FileEditLauncherAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class FileEditLauncherAppState extends State<FileEditLauncherApp> {
   @override
   void initState() {
     super.initState();
@@ -32,10 +34,7 @@ class _MyAppState extends State<MyApp> {
     var pdf = createPdf();
     await file.writeAsBytes(await pdf.save());
 
-    final val = await FileEditLauncher.launchFileEditor(file);
-
-    print(val.successful);
-    print(val.error);
+    await FileEditLauncher.launchFileEditor(file);
   }
 
   pw.Document createPdf() {
@@ -62,8 +61,8 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
             child: TextButton(
-          child: Text('Edit File'),
           onPressed: launchEditFile,
+          child: const Text('Edit File'),
         )),
       ),
     );
