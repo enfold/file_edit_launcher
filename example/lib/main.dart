@@ -11,17 +11,17 @@ import 'package:path/path.dart' as p;
 import 'package:file_edit_launcher/file_edit_launcher.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const FileEditLauncherApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class FileEditLauncherApp extends StatefulWidget {
+  const FileEditLauncherApp({Key? key}) : super(key: key);
 
   @override
-  MyAppState createState() => MyAppState();
+  FileEditLauncherAppState createState() => FileEditLauncherAppState();
 }
 
-class MyAppState extends State<MyApp> {
+class FileEditLauncherAppState extends State<FileEditLauncherApp> {
   @override
   void initState() {
     super.initState();

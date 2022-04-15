@@ -13,7 +13,7 @@ import 'package:file_edit_launcher_example/main.dart';
 void main() {
   testWidgets('Verify Platform version', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const FileEditLauncherApp());
 
     // Verify that platform version is retrieved.
     expect(
